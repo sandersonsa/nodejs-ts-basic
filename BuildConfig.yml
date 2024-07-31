@@ -9,11 +9,10 @@ spec:
     type: Git
     git:
       uri: https://github.com/sandersonsa/nodejs-ts-basic.git
-    # contextDir: httpd-hello-world
   strategy:
     type: Docker                      
     dockerStrategy:
-      dockerfilePath: Containerfile    # Look for Dockerfile in: gitUri/contextDir/dockerfilePath
+      dockerfilePath: Containerfile
   output:
     to:
       kind: ImageStreamTag
