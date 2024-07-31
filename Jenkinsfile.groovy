@@ -1,11 +1,9 @@
-
 pipeline {
     agent any
     
     environment {
         PATH = '$PATH:/var/jenkins_home/tools/com.openshift.jenkins.plugins.OpenShiftClientTools/oc412'
     }
-
 
     stages {
         stage('Validar') {
@@ -19,10 +17,10 @@ pipeline {
         stage('OpenShift Client') {
             steps {
                 script {
-                    // withEnv(["PATH+OC=${tool 'oc412'}"]) {
-                    // withEnv(["PATH=$PATH:/var/jenkins_home/tools/com.openshift.jenkins.plugins.OpenShiftClientTools/oc412"]) {
-                /** The logical name references a Jenkins cluster configuration which implies **/
-                /** API Server URL, default credentials, and a default project to use within the closure body. **/
+                        // withEnv(["PATH+OC=${tool 'oc412'}"]) {
+                        // withEnv(["PATH=$PATH:/var/jenkins_home/tools/com.openshift.jenkins.plugins.OpenShiftClientTools/oc412"]) {
+                        /** The logical name references a Jenkins cluster configuration which implies **/
+                        /** API Server URL, default credentials, and a default project to use within the closure body. **/
                         echo '>>>>> OpenShift Client <<<<<'
                         openshift.withCluster('dev') {
                             echo "Usando : ${openshift.cluster()}'s / project: ${openshift.project()}"
@@ -32,7 +30,9 @@ pipeline {
                                 echo 'pegar BC'
                                 def buildConfig = openshift.selector('bc', 'frontend')
                                 // # we started the build process
-                                openshift.startBuild('frontend')
+                                // openshift.startBuild('frontend')
+                                def buildSelector = buildConfig.startBuild()
+                                buildSelector.logs('-f')
                             // def builds = buildConfig.related('builds')
                             }
                         // }
